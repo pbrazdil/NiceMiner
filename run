@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# docker-machine ssh netvor "rm -rf ~/Apps/niceminer" > /dev/null
+# docker-machine scp -r ../nicehashstats dev@netvor:~/Apps/niceminer > /dev/null
+# docker-machine ssh netvor "cd ~/Apps/niceminer && python3.5 -u run.py"
+# docker-machine ssh netvor "cd ~/Apps/niceminer && python3.5 -u run.py > logs/log-$(date +"%Y%m%d_%H_%M_%S").txt"
+
+# python3.5 -u run.py > ./logs/log-$(date +"%Y%m%d_%H_%M_%S").txt
+
+python3.5 -u run.py
