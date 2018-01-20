@@ -11,14 +11,15 @@ class MinerThread(threading.Thread):
     def run(self):
         print ("Starting " + self.name)
         self.active = True
-        print("Starting new thread: ", " ".join(self.alg.args))
-        p = utils.shell.run(self.alg.args)
+        params = self.alg.getParams()
+        print("Starting new thread: ", " ".join(params))
+        p = utils.shell.run(params)
             
         while(True):
             retcode = p.poll() #returns None while subprocess is running
             line = p.stdout.readline()
-            str_line = line.decode("utf-8") 
-            print(str_line)
+            str_line = "\033[0m[%s]%s" % (self.alg.__class__.__name__, line.decode("utf-8"))
+            print(str_line.strip())
         
             if not self.active:
                 p.kill()

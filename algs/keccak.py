@@ -1,10 +1,11 @@
 import config
 
 class Keccak:
-    def __init__(self):
-        self.args = [
-            "./vendors/ccminer/ccminer", 
+    def getParams(self):
+        return [
+            "./vendors/ccminer-klaust/run", 
             "-a", "keccak", 
-            "-o", "stratum+tcp://keccak.eu.nicehash.com:3348", 
+            "-i", "30",
+            "-o", "stratum+tcp://keccak.%s.nicehash.com:3338" % config.nicehash_location, 
             "-u", "%s.%s" % (config.btc_address, config.rig_name)
         ]

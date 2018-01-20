@@ -26,7 +26,7 @@ def check():
     nicehashstats = nicehash.api.getCurrentStats()
 
     s = ProfitabilityStats(gpuType, gpuCount)
-    s.print(nicehashstats, limit=5, header=False)
+    s.print(nicehashstats, limit=6)
     print()
 
     return s.calculate(nicehashstats)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         delimiter()
         stats = check()
         manager.update(stats)
-
+        delimiter()
         if manager.alg_switched:
             time.sleep(config.minimum_time_for_running_alg)
 
