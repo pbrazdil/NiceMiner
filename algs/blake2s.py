@@ -5,7 +5,7 @@ class Blake2s:
         return [
             "./vendors/ccminer-tpruvot/run", 
             "-a", "blake2s", 
-            "-i", "31",
+            "-i", "30",
             "-o", "stratum+tcp://blake2s.%s.nicehash.com:3361" % config.nicehash_location, 
             "-u", "%s.%s" % (config.btc_address, config.rig_name)
         ]

@@ -6,9 +6,11 @@
 # docker-machine ssh netvor "cd ~/Apps/niceminer && python3.5 -u run.py > logs/log-$(date +"%Y%m%d_%H_%M_%S").txt"
 
 # python3.5 -u run.py > ./logs/log-$(date +"%Y%m%d_%H_%M_%S").txt
+# ssh miner@192.168.1.106
+# ssh miner@192.168.1.106 "rm -rf ~/apps/niceminer"
+# scp -r ../niceminer miner@192.168.1.106:~/apps/niceminer
 
-ssh miner@miner "rm -rf ~/apps/niceminer"
-scp -r ../nicehashstats miner@miner:~/apps/niceminer
-ssh miner@miner "cd ~/apps/niceminer && python3.5 -u run.py"
+rsync -uav  --delete --exclude '.git/' --exclude '*.pyc' ../niceminer miner@rig2:~/apps
+ssh miner@rig2 "cd ~/apps/niceminer && python3.5 -u run.py"
 
-# python3.5 -u run.py
+# python3.5 -u run.py > ./logs/log-$(date +"%Y%m%d_%H_%M_%S").txt

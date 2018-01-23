@@ -1,8 +1,10 @@
 import nicehash.algorithms
-from units import *
+from utils.units import *
+import logging
 
 class NiceHashGTX1080Ti: 
     def __init__(self):
+        logger = logging.getLogger()
         self.stats = {}
 
         self.addStat("Nist5", MHs(71.62))

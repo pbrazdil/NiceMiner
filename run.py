@@ -1,47 +1,43 @@
 import time
 import os
 import sys
+import logging
 
 import config
 import nicehash.api
-import devices
-from units import *
+from gpus.gtx1080ti import GTX1080Ti
 import nvidia.devices
 import stats.nvidia
 from stats.profitability import ProfitabilityStats
+from utils.units import *
 import utils.shell as shell
 from miner_manager import MinerManager
-
-
-def run_miner(name):
-    activeAlgorithm = name
-    print("run miner for: ", name)
+import papertrail
 
 def delimiter():
-    print()
-    print("=" * 100)
-    print()
+    logger = logging.getLogger()
+    logger.info("=" * 100)
 
 def check():
     nicehashstats = nicehash.api.getCurrentStats()
 
     s = ProfitabilityStats(gpuType, gpuCount)
     s.print(nicehashstats, limit=6)
-    print()
 
     return s.calculate(nicehashstats)
 
+logger = papertrail.setup()
 if __name__ == "__main__":
     activeAlgorithm = None
 
-    gpuType = devices.NiceHashGTX1080Ti()
-    gpuCount = nvidia.devices.numberOfGPUs()
+    gpuType = GTX1080Ti()
+    gpuCount = nvidia.devices.count()
     
     manager = MinerManager()
     
-    print("Starting niceminer...")
-    print("Supported algs: ", manager.supported())
-    print("Found %d GPUs" % gpuCount)
+    logger.info("Starting niceminer...")
+    logger.info("Supported algs: %s" % str(manager.supported()))
+    logger.info("Found %d GPUs" % gpuCount)
     stats.nvidia.printGPUs()
 
     while True:

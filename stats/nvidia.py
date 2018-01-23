@@ -1,12 +1,11 @@
-from py3nvml.py3nvml import *
-import py3nvml.nvidia_smi as smi
+import logging
+
+import nvidia.devices as devices
 
 def printGPUs():
-    nvmlInit()
-    print("Driver Version: {}".format(nvmlSystemGetDriverVersion()))
+    logger = logging.getLogger()
+    
+    logger.info("Driver Version: %s" % devices.get_driver_version())
 
-    deviceCount = nvmlDeviceGetCount()
-    for i in range(deviceCount):
-        handle = nvmlDeviceGetHandleByIndex(i)
-        powDraw = (nvmlDeviceGetPowerUsage(handle) / 1000.0)
-        print("Device {}: {}".format(i, nvmlDeviceGetName(handle)), '%.2f W' % powDraw)
+    for i, d in enumerate(devices.get()):
+        logger.info("Device %d: %s, %.2fW" % (i, d[1], d[2]))

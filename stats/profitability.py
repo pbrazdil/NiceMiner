@@ -1,11 +1,13 @@
 import nicehash.algorithms
+import logging
 
 class ProfitabilityStats: 
     def __init__(self, gpuType, gpuCount):
         self.__gpu = gpuType
-        self.__gpuCount = gpuCount    
+        self.__gpuCount = gpuCount
 
     def print(self, nicehash_stats, header = True, limit = -1):
+        logger = logging.getLogger()  
         sorted_stats = self.calculate(nicehash_stats)
 
         if limit != -1:
@@ -13,11 +15,11 @@ class ProfitabilityStats:
 
         if header:
             header = ["Algorithm", "1 GPU/Day", "1 GPU/Month", "%d GPU/day" % self.__gpuCount, "%d GPU/month" % self.__gpuCount]
-            print("{: >15} {: >14} {: >14} {: >14} {: >14}".format(*header))
-            print("-" * 75)
+            logger.info("{: >15} {: >14} {: >14} {: >14} {: >14}".format(*header))
+            logger.info("-" * 75)
         
         for a in sorted_stats:
-            print("{: >15} {: >14f} {: >14f} {: >14f} {: >14f}".format(*a))
+            logger.info("{: >15} {: >14f} {: >14f} {: >14f} {: >14f}".format(*a))
         
 
     
@@ -40,8 +42,7 @@ class ProfitabilityStats:
                 perDay = gpuSpeed * alg[1]
 
                 algName = nicehash.algorithms.algoIdToName(alg[0])
-                # print("%s %f" % (algName, perDay))
-                # print("{: >15} {: >10f}".format(algName, perDay))
+
                 res.append([
                     algName,
                     perDay, 
