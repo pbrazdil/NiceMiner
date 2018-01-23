@@ -14,6 +14,7 @@ class MinerThread(threading.Thread):
         print ("Starting " + self.name)
         self.active = True
 
+        # in case process fails, run again until thread is marked as inactive by parent
         while self.active == True:
             params = self.alg.getParams()
             print("Starting new thread: ", " ".join(params))

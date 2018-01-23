@@ -15,7 +15,7 @@ class Equihash:
                 ]}
 	        ]},
 	        {"time":2,"commands":[
-                {"id":1,"method":"worker.add","params":["0",str(i)]} for i in range(0, nvidia.devices.numberOfGPUs())
+                {"id":1,"method":"worker.add","params":["0",str(i)]} for i in range(0, nvidia.devices.count())
         	]},
             # {"time":10,"commands":[
 		    #     {"id":1,"method":"worker.reset","params":[str(i)]} for i in range(0, nvidia.devices.numberOfGPUs())
