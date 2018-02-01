@@ -14,7 +14,7 @@ class MinerManager:
         "Keccak": Keccak(),
         "Lyra2REv2": Lyra2REv2(),
         "Equihash": Equihash(),
-        "Blake2s": Blake2s(),
+        # "Blake2s": Blake2s(),
     }
 
     def __init__(self):

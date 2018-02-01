@@ -30,6 +30,9 @@ logger = papertrail.setup()
 if __name__ == "__main__":
     activeAlgorithm = None
 
+    # make sure there are no zombie processes
+    shell.reset()
+
     gpuType = GTX1080Ti()
     gpuCount = nvidia.devices.count()
     

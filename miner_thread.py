@@ -1,7 +1,7 @@
 import logging
 import threading
 import time
-import utils.shell
+import utils.shell as shell
 
 class MinerThread(threading.Thread):
     def __init__(self, alg):
@@ -18,7 +18,7 @@ class MinerThread(threading.Thread):
         while self.active == True:
             params = self.alg.getParams()
             print("Starting new thread: ", " ".join(params))
-            p = utils.shell.run(params)
+            p = shell.run(params)
                 
             while(True):
                 retcode = p.poll() #returns None while subprocess is running
@@ -27,10 +27,13 @@ class MinerThread(threading.Thread):
                 logger.info(str_line.strip())
             
                 if not self.active:
-                    p.kill()
+                    p.terminate()
                     logger.info("Close signal sent")
-                    time.sleep(3)
+                    time.sleep(5)
 
                 if(retcode is not None):
                     logger.info("Miner processed finished")
                     break
+
+            # kill zombie processes or still active
+            shell.reset()
