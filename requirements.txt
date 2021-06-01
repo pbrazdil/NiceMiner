@@ -20,5 +20,5 @@ ssh-import-id==5.5
 system-service==0.3
 ufw==0.35
 unattended-upgrades==0.1
-urllib3==1.13.1
+urllib3==1.26.5
 xkit==0.0.0
